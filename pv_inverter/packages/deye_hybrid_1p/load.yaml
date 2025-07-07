@@ -1,4 +1,17 @@
-﻿sensor:
+# Copyright 2025 Lewa-Reka & Harvey Dent
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+sensor:
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
     name: "Load L1 Voltage"
@@ -127,3 +140,52 @@
       - multiply: 0.1
     icon: "mdi:home-lightning-bolt"
 
+  - platform: template
+    name: "Power Losses" # Includes consumption of the inverter device itself as well AC/DC conversion losses
+    id: power_losses
+    unit_of_measurement: "W"
+    device_class: power
+    state_class: total_increasing
+    accuracy_decimals: 1
+    lambda: |-
+      return (id(pv1_power).state + id(pv2_power).state + id(battery_power).state - id(output_power).state);
+    icon: "mdi:home-lightning-bolt"
+
+  - platform: template
+    name: "Daily Losses" # Includes today's consumption of the inverter device itself as well AC/DC conversion losses
+    id: daily_losses
+    unit_of_measurement: "kWh"
+    device_class: energy
+    state_class: total_increasing
+    accuracy_decimals: 1
+    lambda: |-
+      return (
+        id(daily_energy_bought).state +
+        id(daily_pv_production).state +
+        id(daily_generator_production).state +
+        id(daily_battery_discharge).state -
+        id(daily_energy_sold).state -
+        id(daily_battery_charge).state -
+        id(daily_load_consumption).state
+      );
+    icon: "mdi:home-lightning-bolt"
+
+  - platform: template
+    name: "Total Losses" # Includes total consumption of the inverter device itself as well AC/DC conversion losses
+    id: total_losses
+    unit_of_measurement: "kWh"
+    device_class: energy
+    state_class: total_increasing
+    accuracy_decimals: 1
+    lambda: |-
+      return (
+        id(total_energy_bought).state +
+        id(total_pv_production).state +
+        id(total_generator_production).state +
+        id(total_battery_discharge).state -
+        id(total_energy_sold).state -
+        id(total_battery_charge).state -
+        id(total_consumption).state
+      );
+
+    icon: "mdi:home-lightning-bolt"

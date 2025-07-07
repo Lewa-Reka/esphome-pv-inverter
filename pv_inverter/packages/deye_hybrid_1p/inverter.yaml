@@ -1,4 +1,17 @@
-﻿sensor:
+# Copyright 2025 Lewa-Reka & Harvey Dent
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+sensor:
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
     name: "DC Temperature"
@@ -32,7 +45,7 @@
     modbus_controller_id: ${modbus_controller_id}
     name: "Output Frequency"
     register_type: holding
-    address: 192
+    address: 193
     unit_of_measurement: "Hz"
     device_class: frequency
     accuracy_decimals: 2
@@ -92,6 +105,7 @@
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
     name: "Output Power"
+    id: output_power
     register_type: holding
     address: 175
     unit_of_measurement: "W"
