@@ -1,0 +1,52 @@
+# Copyright 2025 Lewa-Reka <lewareka.yt@gmail.com>
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+substitutions:
+  wifi_ssid: !secret wifi_ssid
+  wifi_password: !secret wifi_password
+  api_key: !secret pv_inverter_api_key
+  ota_password: !secret pv_inverter_ota_password
+  fallback_password: !secret pv_inverter_fallback_password
+
+  modbus_inverter_address: "0x01" # Default Modbus address, should be changed to match inverter settings
+
+  # Safe Mode parameters for supported inverters
+  safe_mode_delay: 600s # Time after which transition to safe mode and setting default operating parameters will occur
+  default_maximum_battery_charge_current: "130" # Amps
+  default_max_sell_power: "6000" # Watts. Adjust to your inverter
+  default_system_work_mode: "Zero Export To Load" # "Selling First", "Zero Export To Load", "Zero Export To CT"
+  default_solar_sell: "on" # "on", "off"
+
+packages:
+  pv_inverter:
+    url: https://github.com/Lewa-Reka/esphome-pv-inverter
+    refresh: 12h
+    files: pv_inverter/deye_hybrid_1p_lv.yaml # SG0XLP1 Low Voltage (1P)
+
+# Set appropriately if using a different board. https://esphome.io/components/#supported-microcontrollers
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+uart:
+  # Default TX and RX pins, if TTL converter is connected differently, set appropriate pins
+  tx_pin: GPIO17
+  rx_pin: GPIO16
+
+modbus:
+#  flow_control_pin: GPIO4 # Uncomment and set appropriate pin if your TTL converter requires it
+
+#logger:
+#  level: VERBOSE # VERBOSE / DEBUG / INFO / WARN

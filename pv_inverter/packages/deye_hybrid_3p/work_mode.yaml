@@ -46,7 +46,6 @@ switch:
     register_type: holding
     address: 145
     bitmask: 1
-    entity_category: config
     icon: "mdi:toggle-switch"
 
   - platform: modbus_controller

@@ -187,6 +187,62 @@ sensor:
     icon: "mdi:home-lightning-bolt"
     disabled_by_default: true
 
+  - platform: template
+    name: "Power Losses"
+    id: power_losses
+    unit_of_measurement: "W"
+    device_class: power
+    accuracy_decimals: 1
+    lambda: |-
+      return (
+        id(pv1_power).state +
+        id(pv2_power).state +
+        (id(pv3_power).state) +
+        (id(pv4_power).state) +
+        id(battery_power).state -
+        id(generator_power_total).state -
+        id(output_power).state
+      );
+    icon: "mdi:home-lightning-bolt"
+
+  - platform: template
+    name: "Daily Losses"
+    id: daily_losses
+    unit_of_measurement: "kWh"
+    device_class: energy
+    state_class: total_increasing
+    accuracy_decimals: 1
+    lambda: |-
+      return (
+        id(daily_energy_bought).state +
+        id(daily_pv_production).state +
+        id(daily_generator_production).state +
+        id(daily_battery_discharge).state -
+        id(daily_energy_sold).state -
+        id(daily_battery_charge).state -
+        id(daily_load_consumption).state
+      );
+    icon: "mdi:home-lightning-bolt"
+
+  - platform: template
+    name: "Total Losses"
+    id: total_losses
+    unit_of_measurement: "kWh"
+    device_class: energy
+    state_class: total_increasing
+    accuracy_decimals: 1
+    lambda: |-
+      return (
+        id(total_energy_bought).state +
+        id(total_pv_production).state +
+        id(total_generator_production).state +
+        id(total_battery_discharge).state -
+        id(total_energy_sold).state -
+        id(total_battery_charge).state -
+        id(total_consumption).state
+      );
+    icon: "mdi:home-lightning-bolt"
+
 binary_sensor:
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
