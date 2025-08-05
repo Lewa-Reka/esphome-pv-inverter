@@ -157,7 +157,7 @@ sensor:
     lambda: |-
       auto high = id(total_energy_bought_low_bytes).state;
       auto low = id(total_energy_bought_high_bytes ).state;
-      float calculated_value = ((high << 16) | low) * 0.1
+      float calculated_value = ((high * 65536.0) + low) * 0.1;
       return {};
 
   - platform: modbus_controller
@@ -349,3 +349,4 @@ number:
     address: 290
     value_type: U_WORD
     icon: "mdi:sine-wave"
+
