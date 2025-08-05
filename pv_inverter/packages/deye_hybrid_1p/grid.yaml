@@ -130,24 +130,22 @@ sensor:
       - multiply: 0.1
     icon: "mdi:transmission-tower-export"
 
-  # 2 auxiliary sensors for reading separate registers
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
-    id: total_energy_bought_low 
+    id: total_energy_bought_low_bytes 
     address: 78
     register_type: holding
     value_type: U_WORD
-    internal: true # Hidden in HA
+    internal: true 
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
-    id: total_energy_bought_high 
+    id: total_energy_bought_high_bytes 
     address: 80
     register_type: holding
     value_type: U_WORD
-    internal: true # Hidden in HA
+    internal: true 
 
-  # Mmin Sensor
   - platform: template
     name: "Total Energy Bought"
     id: total_energy_bought
@@ -157,21 +155,10 @@ sensor:
     accuracy_decimals: 1
     icon: "mdi:transmission-tower-import"
     lambda: |-
-      // Pobieramy wartości z naszych dwóch sensorów pomocniczych
-      auto high = id(total_energy_bought_high).state;
-      auto low = id(total_energy_bought_low).state;
-
-      // Łączymy je w jedną 32-bitową liczbę i stosujemy skalowanie 0.1
-      // (wartość_górna * 65536 + wartość_dolna) * 0.1
-      float calculated_value = ((high * 65536.0) + low) * 0.1;
-
-      // "Pancerne" zabezpieczenie na wszelki wypadek
-      static float last_value = NAN;
-      if (isnan(last_value) || (calculated_value >= last_value && calculated_value < last_value + 1000.0)) {
-        last_value = calculated_value;
-        return calculated_value;
-      }
-      return {}; // Odrzuć, jeśli coś nadal jest nie tak
+      auto high = id(total_energy_bought_low_bytes).state;
+      auto low = id(total_energy_bought_high_bytes ).state;
+      float calculated_value = ((high << 16) | low) * 0.1
+      return {};
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
@@ -362,8 +349,3 @@ number:
     address: 290
     value_type: U_WORD
     icon: "mdi:sine-wave"
-
-
-
-
-
