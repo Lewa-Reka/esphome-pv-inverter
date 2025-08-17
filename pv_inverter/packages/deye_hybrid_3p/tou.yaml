@@ -112,8 +112,78 @@ switch:
   - platform: modbus_controller
     use_write_multiple: true
     modbus_controller_id: ${modbus_controller_id}
-    name: "Time of Use 1 Charge Enable"
-    id: switch_time_point_1_charge_enable
+    name: "Time of Use Monday"
+    id: switch_time_of_use_monday
+    register_type: holding
+    address: 146
+    bitmask: 2
+    icon: "mdi:toggle-switch"
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Time of Use Tuesday"
+    id: switch_time_of_use_tuesday
+    register_type: holding
+    address: 146
+    bitmask: 4
+    icon: "mdi:toggle-switch"
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Time of Use Wednesday"
+    id: switch_time_of_use_wednesday
+    register_type: holding
+    address: 146
+    bitmask: 8
+    icon: "mdi:toggle-switch"
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Time of Use Thursday"
+    id: switch_time_of_use_thursday
+    register_type: holding
+    address: 146
+    bitmask: 16
+    icon: "mdi:toggle-switch"
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Time of Use Friday"
+    id: switch_time_of_use_friday
+    register_type: holding
+    address: 146
+    bitmask: 32
+    icon: "mdi:toggle-switch"
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Time of Use Saturday"
+    id: switch_time_of_use_saturday
+    register_type: holding
+    address: 146
+    bitmask: 64
+    icon: "mdi:toggle-switch"
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Time of Use Sunday"
+    id: switch_time_of_use_sunday
+    register_type: holding
+    address: 146
+    bitmask: 128
+    icon: "mdi:toggle-switch"
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Time of Use 1 Grid Charge"
+    id: switch_time_point_1_grid_charge
     register_type: holding
     address: 172
     bitmask: 1
@@ -122,8 +192,28 @@ switch:
   - platform: modbus_controller
     use_write_multiple: true
     modbus_controller_id: ${modbus_controller_id}
-    name: "Time of Use 2 Charge Enable"
-    id: switch_time_point_2_charge_enable
+    name: "Time of Use 1 Gen"
+    id: switch_time_point_1_gen
+    register_type: holding
+    address: 172
+    bitmask: 2
+    icon: "mdi:battery-plus"
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Time of Use 1 Sell"
+    id: switch_time_point_1_sell
+    register_type: holding
+    address: 172
+    bitmask: 32
+    icon: "mdi:battery-plus"
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Time of Use 2 Grid Charge"
+    id: switch_time_point_2_grid_charge
     register_type: holding
     address: 173
     bitmask: 1
@@ -132,8 +222,28 @@ switch:
   - platform: modbus_controller
     use_write_multiple: true
     modbus_controller_id: ${modbus_controller_id}
-    name: "Time of Use 3 Charge Enable"
-    id: switch_time_point_3_charge_enable
+    name: "Time of Use 2 Gen"
+    id: switch_time_point_2_gen
+    register_type: holding
+    address: 173
+    bitmask: 2
+    icon: "mdi:battery-plus"
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Time of Use 2 Sell"
+    id: switch_time_point_2_sell
+    register_type: holding
+    address: 173
+    bitmask: 32
+    icon: "mdi:battery-plus"
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Time of Use 3 Grid Charge"
+    id: switch_time_point_3_grid_charge
     register_type: holding
     address: 174
     bitmask: 1
@@ -142,8 +252,28 @@ switch:
   - platform: modbus_controller
     use_write_multiple: true
     modbus_controller_id: ${modbus_controller_id}
-    name: "Time of Use 4 Charge Enable"
-    id: switch_time_point_4_charge_enable
+    name: "Time of Use 3 Gen"
+    id: switch_time_point_3_gen
+    register_type: holding
+    address: 174
+    bitmask: 2
+    icon: "mdi:battery-plus"
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Time of Use 3 Sell"
+    id: switch_time_point_3_sell
+    register_type: holding
+    address: 174
+    bitmask: 32
+    icon: "mdi:battery-plus"
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Time of Use 4 Grid Charge"
+    id: switch_time_point_4_grid_charge
     register_type: holding
     address: 175
     bitmask: 1
@@ -152,8 +282,28 @@ switch:
   - platform: modbus_controller
     use_write_multiple: true
     modbus_controller_id: ${modbus_controller_id}
-    name: "Time of Use 5 Charge Enable"
-    id: switch_time_point_5_charge_enable
+    name: "Time of Use 4 Gen"
+    id: switch_time_point_4_gen
+    register_type: holding
+    address: 175
+    bitmask: 2
+    icon: "mdi:battery-plus"
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Time of Use 4 Sell"
+    id: switch_time_point_4_sell
+    register_type: holding
+    address: 175
+    bitmask: 32
+    icon: "mdi:battery-plus"
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Time of Use 5 Grid Charge"
+    id: switch_time_point_5_grid_charge
     register_type: holding
     address: 176
     bitmask: 1
@@ -162,11 +312,51 @@ switch:
   - platform: modbus_controller
     use_write_multiple: true
     modbus_controller_id: ${modbus_controller_id}
-    name: "Time of Use 6 Charge Enable"
-    id: switch_time_point_6_charge_enable
+    name: "Time of Use 5 Gen"
+    id: switch_time_point_5_gen
+    register_type: holding
+    address: 176
+    bitmask: 2
+    icon: "mdi:battery-plus"
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Time of Use 5 Sell"
+    id: switch_time_point_5_sell
+    register_type: holding
+    address: 176
+    bitmask: 32
+    icon: "mdi:battery-plus"
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Time of Use 6 Grid Charge"
+    id: switch_time_point_6_grid_charge
     register_type: holding
     address: 177
     bitmask: 1
+    icon: "mdi:battery-plus"
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Time of Use 6 Gen"
+    id: switch_time_point_6_gen
+    register_type: holding
+    address: 177
+    bitmask: 2
+    icon: "mdi:battery-plus"
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${modbus_controller_id}
+    name: "Time of Use 6 Sell"
+    id: switch_time_point_6_sell
+    register_type: holding
+    address: 177
+    bitmask: 32
     icon: "mdi:battery-plus"
 
 number:
