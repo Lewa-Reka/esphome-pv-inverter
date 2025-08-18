@@ -251,6 +251,7 @@ switch:
 
   - platform: template
     name: "Time of Use 1 Sell"
+    id: switch_time_of_use_1_sell
     icon: "mdi:battery-plus"
     optimistic: true
     restore_mode: DISABLED
@@ -297,6 +298,7 @@ switch:
 
   - platform: template
     name: "Time of Use 2 Sell"
+    id: switch_time_of_use_2_sell
     icon: "mdi:battery-plus"
     optimistic: true
     restore_mode: DISABLED
@@ -343,6 +345,7 @@ switch:
 
   - platform: template
     name: "Time of Use 3 Sell"
+    id: switch_time_of_use_3_sell
     icon: "mdi:battery-plus"
     optimistic: true
     restore_mode: DISABLED
@@ -389,6 +392,7 @@ switch:
 
   - platform: template
     name: "Time of Use 4 Sell"
+    id: switch_time_of_use_4_sell
     icon: "mdi:battery-plus"
     optimistic: true
     restore_mode: DISABLED
@@ -435,6 +439,7 @@ switch:
 
   - platform: template
     name: "Time of Use 5 Sell"
+    id: switch_time_of_use_5_sell
     icon: "mdi:battery-plus"
     optimistic: true
     restore_mode: DISABLED
@@ -481,6 +486,7 @@ switch:
 
   - platform: template
     name: "Time of Use 6 Sell"
+    id: switch_time_of_use_6_sell
     icon: "mdi:battery-plus"
     optimistic: true
     restore_mode: DISABLED
