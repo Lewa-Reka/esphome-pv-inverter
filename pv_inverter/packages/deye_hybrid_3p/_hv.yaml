@@ -166,3 +166,17 @@ number:
     step: 0.1
     min_value: 150
     max_value: 710
+
+switch:
+  - id: !extend switch_time_of_use_1_sell
+    disabled_by_default: false
+  - id: !extend switch_time_of_use_2_sell
+    disabled_by_default: false
+  - id: !extend switch_time_of_use_3_sell
+    disabled_by_default: false
+  - id: !extend switch_time_of_use_4_sell
+    disabled_by_default: false
+  - id: !extend switch_time_of_use_5_sell
+    disabled_by_default: false
+  - id: !extend switch_time_of_use_6_sell
+    disabled_by_default: false
