@@ -18,8 +18,6 @@ substitutions:
   api_key: !secret pv_inverter_api_key
   ota_password: !secret pv_inverter_ota_password
   fallback_password: !secret pv_inverter_fallback_password
-  recordEnergyMeasurments: "true"
-
 
   modbus_inverter_address: "0x01" # Default Modbus address, should be changed to match inverter settings
 
