@@ -20,7 +20,7 @@ substitutions:
   baud_rate: "9600"
 
   # Additional statistic
-  recordEnergyMeasurments: "false" #Allow to record Voltage and Power of Load ports
+  recordEnergyMeasurments: false #Allow to record Voltage and Power of Load ports
 
   # Safe Mode Default parameters
   default_maximum_battery_charge_current: "140" # Amps
