@@ -23,6 +23,7 @@ substitutions:
   default_max_sell_power: "12000" # Watts
   default_system_work_mode: "Zero Export To Load" # "Selling First", "Zero Export To Load", "Zero Export To CT"
   default_solar_sell: "on" # "on", "off"
+  default_force_off_grid: "off" # "on", "off"
 
 packages:
   init: !include packages/init.yaml
@@ -53,3 +54,5 @@ script:
           option: ${default_system_work_mode}
       - switch.turn_${default_solar_sell}:
           id: switch_solar_sell
+      - switch.turn_${default_force_off_grid}:
+          id: switch_off_grid
