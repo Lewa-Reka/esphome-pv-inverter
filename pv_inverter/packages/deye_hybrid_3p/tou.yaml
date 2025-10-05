@@ -221,6 +221,7 @@ switch:
 
   - platform: template
     name: "Time of Use 1 Grid Charge"
+    id: switch_time_of_use_1_grid_charge
     icon: "mdi:battery-plus"
     optimistic: true
     restore_mode: DISABLED
@@ -236,6 +237,7 @@ switch:
 
   - platform: template
     name: "Time of Use 1 Gen"
+    id: switch_time_of_use_1_gen
     icon: "mdi:battery-plus"
     optimistic: true
     restore_mode: DISABLED
@@ -268,6 +270,7 @@ switch:
 
   - platform: template
     name: "Time of Use 2 Grid Charge"
+    id: switch_time_of_use_2_grid_charge
     icon: "mdi:battery-plus"
     optimistic: true
     restore_mode: DISABLED
@@ -283,6 +286,7 @@ switch:
 
   - platform: template
     name: "Time of Use 2 Gen"
+    id: switch_time_of_use_2_gen
     icon: "mdi:battery-plus"
     optimistic: true
     restore_mode: DISABLED
@@ -315,6 +319,7 @@ switch:
 
   - platform: template
     name: "Time of Use 3 Grid Charge"
+    id: switch_time_of_use_3_grid_charge
     icon: "mdi:battery-plus"
     optimistic: true
     restore_mode: DISABLED
@@ -330,6 +335,7 @@ switch:
 
   - platform: template
     name: "Time of Use 3 Gen"
+    id: switch_time_of_use_3_gen
     icon: "mdi:battery-plus"
     optimistic: true
     restore_mode: DISABLED
@@ -362,6 +368,7 @@ switch:
 
   - platform: template
     name: "Time of Use 4 Grid Charge"
+    id: switch_time_of_use_4_grid_charge
     icon: "mdi:battery-plus"
     optimistic: true
     restore_mode: DISABLED
@@ -377,6 +384,7 @@ switch:
 
   - platform: template
     name: "Time of Use 4 Gen"
+    id: switch_time_of_use_4_gen
     icon: "mdi:battery-plus"
     optimistic: true
     restore_mode: DISABLED
@@ -409,6 +417,7 @@ switch:
 
   - platform: template
     name: "Time of Use 5 Grid Charge"
+    id: switch_time_of_use_5_grid_charge
     icon: "mdi:battery-plus"
     optimistic: true
     restore_mode: DISABLED
@@ -424,6 +433,7 @@ switch:
 
   - platform: template
     name: "Time of Use 5 Gen"
+    id: switch_time_of_use_5_gen
     icon: "mdi:battery-plus"
     optimistic: true
     restore_mode: DISABLED
@@ -456,6 +466,7 @@ switch:
 
   - platform: template
     name: "Time of Use 6 Grid Charge"
+    id: switch_time_of_use_6_grid_charge
     icon: "mdi:battery-plus"
     optimistic: true
     restore_mode: DISABLED
@@ -471,6 +482,7 @@ switch:
 
   - platform: template
     name: "Time of Use 6 Gen"
+    id: switch_time_of_use_6_gen
     icon: "mdi:battery-plus"
     optimistic: true
     restore_mode: DISABLED
@@ -500,6 +512,114 @@ switch:
       - number.set:
           id: time_of_use_6_raw
           value: !lambda "return (int)id(time_of_use_6_raw).state & ~0b00100000;"
+
+  - platform: template
+    name: "Time of Use All Grid Charge"
+    id: switch_time_of_use_all_grid_charge
+    icon: "mdi:battery-plus"
+    optimistic: true
+    restore_mode: DISABLED
+    disabled_by_default: true
+    lambda: |-
+      return id(switch_time_of_use_1_grid_charge).state;
+    turn_on_action:
+      - switch.turn_on:
+          id: switch_time_of_use_1_grid_charge
+      - switch.turn_on:
+          id: switch_time_of_use_2_grid_charge
+      - switch.turn_on:
+          id: switch_time_of_use_3_grid_charge
+      - switch.turn_on:
+          id: switch_time_of_use_4_grid_charge
+      - switch.turn_on:
+          id: switch_time_of_use_5_grid_charge
+      - switch.turn_on:
+          id: switch_time_of_use_6_grid_charge
+    turn_off_action:
+      - switch.turn_off:
+          id: switch_time_of_use_1_grid_charge
+      - switch.turn_off:
+          id: switch_time_of_use_2_grid_charge
+      - switch.turn_off:
+          id: switch_time_of_use_3_grid_charge
+      - switch.turn_off:
+          id: switch_time_of_use_4_grid_charge
+      - switch.turn_off:
+          id: switch_time_of_use_5_grid_charge
+      - switch.turn_off:
+          id: switch_time_of_use_6_grid_charge
+
+  - platform: template
+    name: "Time of Use All Gen"
+    id: switch_time_of_use_all_gen
+    icon: "mdi:battery-plus"
+    optimistic: true
+    restore_mode: DISABLED
+    disabled_by_default: true
+    lambda: |-
+      return id(switch_time_of_use_1_gen).state;
+    turn_on_action:
+      - switch.turn_on:
+          id: switch_time_of_use_1_gen
+      - switch.turn_on:
+          id: switch_time_of_use_2_gen
+      - switch.turn_on:
+          id: switch_time_of_use_3_gen
+      - switch.turn_on:
+          id: switch_time_of_use_4_gen
+      - switch.turn_on:
+          id: switch_time_of_use_5_gen
+      - switch.turn_on:
+          id: switch_time_of_use_6_gen
+    turn_off_action:
+      - switch.turn_off:
+          id: switch_time_of_use_1_gen
+      - switch.turn_off:
+          id: switch_time_of_use_2_gen
+      - switch.turn_off:
+          id: switch_time_of_use_3_gen
+      - switch.turn_off:
+          id: switch_time_of_use_4_gen
+      - switch.turn_off:
+          id: switch_time_of_use_5_gen
+      - switch.turn_off:
+          id: switch_time_of_use_6_gen
+
+  - platform: template
+    name: "Time of Use All Sell"
+    id: switch_time_of_use_all_sell
+    icon: "mdi:battery-plus"
+    optimistic: true
+    restore_mode: DISABLED
+    disabled_by_default: true
+    lambda: |-
+      return id(switch_time_of_use_1_sell).state;
+    turn_on_action:
+      - switch.turn_on:
+          id: switch_time_of_use_1_sell
+      - switch.turn_on:
+          id: switch_time_of_use_2_sell
+      - switch.turn_on:
+          id: switch_time_of_use_3_sell
+      - switch.turn_on:
+          id: switch_time_of_use_4_sell
+      - switch.turn_on:
+          id: switch_time_of_use_5_sell
+      - switch.turn_on:
+          id: switch_time_of_use_6_sell
+    turn_off_action:
+      - switch.turn_off:
+          id: switch_time_of_use_1_sell
+      - switch.turn_off:
+          id: switch_time_of_use_2_sell
+      - switch.turn_off:
+          id: switch_time_of_use_3_sell
+      - switch.turn_off:
+          id: switch_time_of_use_4_sell
+      - switch.turn_off:
+          id: switch_time_of_use_5_sell
+      - switch.turn_off:
+          id: switch_time_of_use_6_sell
 
 number:
   - platform: modbus_controller
@@ -749,6 +869,7 @@ number:
     use_write_multiple: true
     modbus_controller_id: ${modbus_controller_id}
     name: "Time of Use 1 SoC"
+    id: time_of_use_1_soc
     unit_of_measurement: "%"
     address: 166
     min_value: 0
@@ -761,6 +882,7 @@ number:
     use_write_multiple: true
     modbus_controller_id: ${modbus_controller_id}
     name: "Time of Use 2 SoC"
+    id: time_of_use_2_soc
     unit_of_measurement: "%"
     address: 167
     min_value: 0
@@ -773,6 +895,7 @@ number:
     use_write_multiple: true
     modbus_controller_id: ${modbus_controller_id}
     name: "Time of Use 3 SoC"
+    id: time_of_use_3_soc
     unit_of_measurement: "%"
     address: 168
     min_value: 0
@@ -785,6 +908,7 @@ number:
     use_write_multiple: true
     modbus_controller_id: ${modbus_controller_id}
     name: "Time of Use 4 SoC"
+    id: time_of_use_4_soc
     unit_of_measurement: "%"
     address: 169
     min_value: 0
@@ -797,6 +921,7 @@ number:
     use_write_multiple: true
     modbus_controller_id: ${modbus_controller_id}
     name: "Time of Use 5 SoC"
+    id: time_of_use_5_soc
     unit_of_measurement: "%"
     address: 170
     min_value: 0
@@ -809,6 +934,7 @@ number:
     use_write_multiple: true
     modbus_controller_id: ${modbus_controller_id}
     name: "Time of Use 6 SoC"
+    id: time_of_use_6_soc
     unit_of_measurement: "%"
     address: 171
     min_value: 0
@@ -816,6 +942,105 @@ number:
     step: 1
     value_type: U_WORD
     icon: "mdi:battery-clock"
+
+  - platform: template
+    name: "Time of Use All SoC"
+    id: time_of_use_all_soc
+    unit_of_measurement: "%"
+    device_class: battery
+    min_value: 0
+    max_value: 100
+    step: 1
+    update_interval: 1s
+    icon: "mdi:battery-clock"
+    disabled_by_default: true
+    lambda: |-
+      return id(time_of_use_1_soc).state;
+    set_action:
+      - number.set:
+          id: time_of_use_1_soc
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_2_soc
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_3_soc
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_4_soc
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_5_soc
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_6_soc
+          value: !lambda "return x;"
+
+  - platform: template
+    name: "Time of Use All Out Power"
+    id: time_of_use_all_out_power
+    unit_of_measurement: W
+    device_class: power
+    min_value: 0
+    max_value: 20000
+    step: 1
+    update_interval: 1s
+    icon: "mdi:power-plug"
+    disabled_by_default: true
+    lambda: |-
+      return id(time_of_use_1_out_power).state;
+    set_action:
+      - number.set:
+          id: time_of_use_1_out_power
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_2_out_power
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_3_out_power
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_4_out_power
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_5_out_power
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_6_out_power
+          value: !lambda "return x;"
+
+  - platform: template
+    name: "Time of Use All Voltage"
+    id: time_of_use_all_voltage
+    unit_of_measurement: "V"
+    device_class: voltage
+    min_value: 0
+    max_value: 63
+    step: 0.01
+    update_interval: 1s
+    icon: "mdi:sun-clock"
+    disabled_by_default: true
+    lambda: |-
+      return id(time_of_use_1_voltage).state;
+    set_action:
+      - number.set:
+          id: time_of_use_1_voltage
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_2_voltage
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_3_voltage
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_4_voltage
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_5_voltage
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_6_voltage
+          value: !lambda "return x;"
 
   - platform: modbus_controller
     use_write_multiple: true

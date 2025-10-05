@@ -166,6 +166,10 @@ number:
     step: 0.1
     min_value: 150
     max_value: 710
+  - id: !extend time_of_use_all_voltage
+    step: 0.1
+    min_value: 150
+    max_value: 710
 
 switch:
   - id: !extend switch_time_of_use_1_sell
