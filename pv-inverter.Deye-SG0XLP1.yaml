@@ -38,7 +38,7 @@ packages:
 esp32:
   board: esp32dev
   framework:
-    type: arduino
+    type: esp-idf
 
 uart:
   # Default TX and RX pins, if TTL converter is connected differently, set appropriate pins
