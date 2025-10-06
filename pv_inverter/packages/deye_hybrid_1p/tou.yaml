@@ -1,345 +1,88 @@
-﻿select:
-  - platform: modbus_controller
-    use_write_multiple: true
-    modbus_controller_id: ${modbus_controller_id}
+﻿substitutions:
+  func_int_to_time: |-
+    uint8_t hours = raw / 100;
+    uint8_t minutes = raw - (hours * 100);
+    return ESPTime {.minute = minutes, .hour = hours};
+  func_time_to_int: "return x.hour * 100 + x.minute;"
+
+datetime:
+  - platform: template
     name: "Time of Use 1 Start"
-    address: 250
-    value_type: U_WORD
-    icon: "mdi:clock-start"
-    optionsmap:
-      "00:00": 0
-      "00:30": 30
-      "01:00": 100
-      "01:30": 130
-      "02:00": 200
-      "02:30": 230
-      "03:00": 300
-      "03:30": 330
-      "04:00": 400
-      "04:30": 430
-      "05:00": 500
-      "05:30": 530
-      "06:00": 600
-      "06:30": 630
-      "07:00": 700
-      "07:30": 730
-      "08:00": 800
-      "08:30": 830
-      "09:00": 900
-      "09:30": 930
-      "10:00": 1000
-      "10:30": 1030
-      "11:00": 1100
-      "11:30": 1130
-      "12:00": 1200
-      "12:30": 1230
-      "13:00": 1300
-      "13:30": 1330
-      "14:00": 1400
-      "14:30": 1430
-      "15:00": 1500
-      "15:30": 1530
-      "16:00": 1600
-      "16:30": 1630
-      "17:00": 1700
-      "17:30": 1730
-      "18:00": 1800
-      "18:30": 1830
-      "19:00": 1900
-      "19:30": 1930
-      "20:00": 2000
-      "20:30": 2030
-      "21:00": 2100
-      "21:30": 2130
-      "22:00": 2200
-      "22:30": 2230
-      "23:00": 2300
-      "23:30": 2330
+    id: time_of_use_1_start
+    type: time
+    update_interval: 15s
+    lambda: |-
+      auto raw = id(time_of_use_1_start_raw).state;
+      ${func_int_to_time}
+    set_action:
+      - number.set:
+          id: time_of_use_1_start_raw
+          value: !lambda ${func_time_to_int}
 
-  - platform: modbus_controller
-    use_write_multiple: true
-    modbus_controller_id: ${modbus_controller_id}
+  - platform: template
     name: "Time of Use 2 Start"
-    address: 251
-    value_type: U_WORD
-    icon: "mdi:clock-start"
-    optionsmap:
-      "00:00": 0
-      "00:30": 30
-      "01:00": 100
-      "01:30": 130
-      "02:00": 200
-      "02:30": 230
-      "03:00": 300
-      "03:30": 330
-      "04:00": 400
-      "04:30": 430
-      "05:00": 500
-      "05:30": 530
-      "06:00": 600
-      "06:30": 630
-      "07:00": 700
-      "07:30": 730
-      "08:00": 800
-      "08:30": 830
-      "09:00": 900
-      "09:30": 930
-      "10:00": 1000
-      "10:30": 1030
-      "11:00": 1100
-      "11:30": 1130
-      "12:00": 1200
-      "12:30": 1230
-      "13:00": 1300
-      "13:30": 1330
-      "14:00": 1400
-      "14:30": 1430
-      "15:00": 1500
-      "15:30": 1530
-      "16:00": 1600
-      "16:30": 1630
-      "17:00": 1700
-      "17:30": 1730
-      "18:00": 1800
-      "18:30": 1830
-      "19:00": 1900
-      "19:30": 1930
-      "20:00": 2000
-      "20:30": 2030
-      "21:00": 2100
-      "21:30": 2130
-      "22:00": 2200
-      "22:30": 2230
-      "23:00": 2300
-      "23:30": 2330
+    id: time_of_use_2_start
+    type: time
+    update_interval: 15s
+    lambda: |-
+      auto raw = id(time_of_use_2_start_raw).state;
+      ${func_int_to_time}
+    set_action:
+      - number.set:
+          id: time_of_use_2_start_raw
+          value: !lambda ${func_time_to_int}
 
-  - platform: modbus_controller
-    use_write_multiple: true
-    modbus_controller_id: ${modbus_controller_id}
+  - platform: template
     name: "Time of Use 3 Start"
-    address: 252
-    value_type: U_WORD
-    icon: "mdi:clock-start"
-    optionsmap:
-      "00:00": 0
-      "00:30": 30
-      "01:00": 100
-      "01:30": 130
-      "02:00": 200
-      "02:30": 230
-      "03:00": 300
-      "03:30": 330
-      "04:00": 400
-      "04:30": 430
-      "05:00": 500
-      "05:30": 530
-      "06:00": 600
-      "06:30": 630
-      "07:00": 700
-      "07:30": 730
-      "08:00": 800
-      "08:30": 830
-      "09:00": 900
-      "09:30": 930
-      "10:00": 1000
-      "10:30": 1030
-      "11:00": 1100
-      "11:30": 1130
-      "12:00": 1200
-      "12:30": 1230
-      "13:00": 1300
-      "13:30": 1330
-      "14:00": 1400
-      "14:30": 1430
-      "15:00": 1500
-      "15:30": 1530
-      "16:00": 1600
-      "16:30": 1630
-      "17:00": 1700
-      "17:30": 1730
-      "18:00": 1800
-      "18:30": 1830
-      "19:00": 1900
-      "19:30": 1930
-      "20:00": 2000
-      "20:30": 2030
-      "21:00": 2100
-      "21:30": 2130
-      "22:00": 2200
-      "22:30": 2230
-      "23:00": 2300
-      "23:30": 2330
+    id: time_of_use_3_start
+    type: time
+    update_interval: 15s
+    lambda: |-
+      auto raw = id(time_of_use_3_start_raw).state;
+      ${func_int_to_time}
+    set_action:
+      - number.set:
+          id: time_of_use_3_start_raw
+          value: !lambda ${func_time_to_int}
 
-  - platform: modbus_controller
-    use_write_multiple: true
-    modbus_controller_id: ${modbus_controller_id}
+  - platform: template
     name: "Time of Use 4 Start"
-    address: 253
-    value_type: U_WORD
-    icon: "mdi:clock-start"
-    optionsmap:
-      "00:00": 0
-      "00:30": 30
-      "01:00": 100
-      "01:30": 130
-      "02:00": 200
-      "02:30": 230
-      "03:00": 300
-      "03:30": 330
-      "04:00": 400
-      "04:30": 430
-      "05:00": 500
-      "05:30": 530
-      "06:00": 600
-      "06:30": 630
-      "07:00": 700
-      "07:30": 730
-      "08:00": 800
-      "08:30": 830
-      "09:00": 900
-      "09:30": 930
-      "10:00": 1000
-      "10:30": 1030
-      "11:00": 1100
-      "11:30": 1130
-      "12:00": 1200
-      "12:30": 1230
-      "13:00": 1300
-      "13:30": 1330
-      "14:00": 1400
-      "14:30": 1430
-      "15:00": 1500
-      "15:30": 1530
-      "16:00": 1600
-      "16:30": 1630
-      "17:00": 1700
-      "17:30": 1730
-      "18:00": 1800
-      "18:30": 1830
-      "19:00": 1900
-      "19:30": 1930
-      "20:00": 2000
-      "20:30": 2030
-      "21:00": 2100
-      "21:30": 2130
-      "22:00": 2200
-      "22:30": 2230
-      "23:00": 2300
-      "23:30": 2330
+    id: time_of_use_4_start
+    type: time
+    update_interval: 15s
+    lambda: |-
+      auto raw = id(time_of_use_4_start_raw).state;
+      ${func_int_to_time}
+    set_action:
+      - number.set:
+          id: time_of_use_4_start_raw
+          value: !lambda ${func_time_to_int}
 
-  - platform: modbus_controller
-    use_write_multiple: true
-    modbus_controller_id: ${modbus_controller_id}
+  - platform: template
     name: "Time of Use 5 Start"
-    address: 254
-    value_type: U_WORD
-    icon: "mdi:clock-start"
-    optionsmap:
-      "00:00": 0
-      "00:30": 30
-      "01:00": 100
-      "01:30": 130
-      "02:00": 200
-      "02:30": 230
-      "03:00": 300
-      "03:30": 330
-      "04:00": 400
-      "04:30": 430
-      "05:00": 500
-      "05:30": 530
-      "06:00": 600
-      "06:30": 630
-      "07:00": 700
-      "07:30": 730
-      "08:00": 800
-      "08:30": 830
-      "09:00": 900
-      "09:30": 930
-      "10:00": 1000
-      "10:30": 1030
-      "11:00": 1100
-      "11:30": 1130
-      "12:00": 1200
-      "12:30": 1230
-      "13:00": 1300
-      "13:30": 1330
-      "14:00": 1400
-      "14:30": 1430
-      "15:00": 1500
-      "15:30": 1530
-      "16:00": 1600
-      "16:30": 1630
-      "17:00": 1700
-      "17:30": 1730
-      "18:00": 1800
-      "18:30": 1830
-      "19:00": 1900
-      "19:30": 1930
-      "20:00": 2000
-      "20:30": 2030
-      "21:00": 2100
-      "21:30": 2130
-      "22:00": 2200
-      "22:30": 2230
-      "23:00": 2300
-      "23:30": 2330
+    id: time_of_use_5_start
+    type: time
+    update_interval: 15s
+    lambda: |-
+      auto raw = id(time_of_use_5_start_raw).state;
+      ${func_int_to_time}
+    set_action:
+      - number.set:
+          id: time_of_use_5_start_raw
+          value: !lambda ${func_time_to_int}
 
-  - platform: modbus_controller
-    use_write_multiple: true
-    modbus_controller_id: ${modbus_controller_id}
+  - platform: template
     name: "Time of Use 6 Start"
-    address: 255
-    value_type: U_WORD
-    icon: "mdi:clock-start"
-    optionsmap:
-      "00:00": 0
-      "00:30": 30
-      "01:00": 100
-      "01:30": 130
-      "02:00": 200
-      "02:30": 230
-      "03:00": 300
-      "03:30": 330
-      "04:00": 400
-      "04:30": 430
-      "05:00": 500
-      "05:30": 530
-      "06:00": 600
-      "06:30": 630
-      "07:00": 700
-      "07:30": 730
-      "08:00": 800
-      "08:30": 830
-      "09:00": 900
-      "09:30": 930
-      "10:00": 1000
-      "10:30": 1030
-      "11:00": 1100
-      "11:30": 1130
-      "12:00": 1200
-      "12:30": 1230
-      "13:00": 1300
-      "13:30": 1330
-      "14:00": 1400
-      "14:30": 1430
-      "15:00": 1500
-      "15:30": 1530
-      "16:00": 1600
-      "16:30": 1630
-      "17:00": 1700
-      "17:30": 1730
-      "18:00": 1800
-      "18:30": 1830
-      "19:00": 1900
-      "19:30": 1930
-      "20:00": 2000
-      "20:30": 2030
-      "21:00": 2100
-      "21:30": 2130
-      "22:00": 2200
-      "22:30": 2230
-      "23:00": 2300
-      "23:30": 2330
+    id: time_of_use_6_start
+    type: time
+    update_interval: 15s
+    lambda: |-
+      auto raw = id(time_of_use_6_start_raw).state;
+      ${func_int_to_time}
+    set_action:
+      - number.set:
+          id: time_of_use_6_start_raw
+          value: !lambda ${func_time_to_int}
 
 switch:
   - platform: modbus_controller
@@ -412,7 +155,115 @@ switch:
     bitmask: 1
     icon: "mdi:battery-plus"
 
+  - platform: template
+    name: "Time of Use All Charge Enable"
+    id: switch_time_of_use_all_charge_enable
+    icon: "mdi:battery-plus"
+    optimistic: true
+    restore_mode: DISABLED
+    disabled_by_default: true
+    lambda: |-
+      return id(switch_time_point_1_charge_enable).state;
+    turn_on_action:
+      - switch.turn_on:
+          id: switch_time_point_1_charge_enable
+      - switch.turn_on:
+          id: switch_time_point_2_charge_enable
+      - switch.turn_on:
+          id: switch_time_point_3_charge_enable
+      - switch.turn_on:
+          id: switch_time_point_4_charge_enable
+      - switch.turn_on:
+          id: switch_time_point_5_charge_enable
+      - switch.turn_on:
+          id: switch_time_point_6_charge_enable
+    turn_off_action:
+      - switch.turn_off:
+          id: switch_time_point_1_charge_enable
+      - switch.turn_off:
+          id: switch_time_point_2_charge_enable
+      - switch.turn_off:
+          id: switch_time_point_3_charge_enable
+      - switch.turn_off:
+          id: switch_time_point_4_charge_enable
+      - switch.turn_off:
+          id: switch_time_point_5_charge_enable
+      - switch.turn_off:
+          id: switch_time_point_6_charge_enable
+
 number:
+  - platform: modbus_controller
+    use_write_multiple: true
+    name: "Time of Use 1 Start Raw"
+    id: time_of_use_1_start_raw
+    modbus_controller_id: ${modbus_controller_id}
+    register_type: holding
+    address: 250
+    value_type: U_WORD
+    min_value: 0
+    max_value: 2359
+    internal: true
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    name: "Time of Use 2 Start Raw"
+    id: time_of_use_2_start_raw
+    modbus_controller_id: ${modbus_controller_id}
+    register_type: holding
+    address: 251
+    value_type: U_WORD
+    min_value: 0
+    max_value: 2359
+    internal: true
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    name: "Time of Use 3 Start Raw"
+    id: time_of_use_3_start_raw
+    modbus_controller_id: ${modbus_controller_id}
+    register_type: holding
+    address: 252
+    value_type: U_WORD
+    min_value: 0
+    max_value: 2359
+    internal: true
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    name: "Time of Use 4 Start Raw"
+    id: time_of_use_4_start_raw
+    modbus_controller_id: ${modbus_controller_id}
+    register_type: holding
+    address: 253
+    value_type: U_WORD
+    min_value: 0
+    max_value: 2359
+    internal: true
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    name: "Time of Use 5 Start Raw"
+    id: time_of_use_5_start_raw
+    modbus_controller_id: ${modbus_controller_id}
+    register_type: holding
+    address: 254
+    value_type: U_WORD
+    min_value: 0
+    max_value: 2359
+    internal: true
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    name: "Time of Use 6 Start Raw"
+    id: time_of_use_6_start_raw
+    modbus_controller_id: ${modbus_controller_id}
+    register_type: holding
+    address: 255
+    value_type: U_WORD
+    min_value: 0
+    max_value: 2359
+    internal: true
+
   - platform: modbus_controller
     use_write_multiple: true
     modbus_controller_id: ${modbus_controller_id}
@@ -449,7 +300,7 @@ number:
     use_write_multiple: true
     modbus_controller_id: ${modbus_controller_id}
     name: "Time of Use 3 Voltage"
-    id: time_of_use_3_voltage    
+    id: time_of_use_3_voltage
     register_type: holding
     address: 264
     unit_of_measurement: "V"
@@ -579,6 +430,7 @@ number:
     use_write_multiple: true
     modbus_controller_id: ${modbus_controller_id}
     name: "Time of Use 1 SoC"
+    id: time_of_use_1_soc
     unit_of_measurement: "%"
     address: 268
     min_value: 0
@@ -591,6 +443,7 @@ number:
     use_write_multiple: true
     modbus_controller_id: ${modbus_controller_id}
     name: "Time of Use 2 SoC"
+    id: time_of_use_2_soc
     unit_of_measurement: "%"
     address: 269
     min_value: 0
@@ -603,6 +456,7 @@ number:
     use_write_multiple: true
     modbus_controller_id: ${modbus_controller_id}
     name: "Time of Use 3 SoC"
+    id: time_of_use_3_soc
     unit_of_measurement: "%"
     address: 270
     min_value: 0
@@ -615,6 +469,7 @@ number:
     use_write_multiple: true
     modbus_controller_id: ${modbus_controller_id}
     name: "Time of Use 4 SoC"
+    id: time_of_use_4_soc
     unit_of_measurement: "%"
     address: 271
     min_value: 0
@@ -627,6 +482,7 @@ number:
     use_write_multiple: true
     modbus_controller_id: ${modbus_controller_id}
     name: "Time of Use 5 SoC"
+    id: time_of_use_5_soc
     unit_of_measurement: "%"
     address: 272
     min_value: 0
@@ -639,6 +495,7 @@ number:
     use_write_multiple: true
     modbus_controller_id: ${modbus_controller_id}
     name: "Time of Use 6 SoC"
+    id: time_of_use_6_soc
     unit_of_measurement: "%"
     address: 273
     min_value: 0
@@ -646,3 +503,102 @@ number:
     step: 1
     value_type: U_WORD
     icon: "mdi:battery-clock"
+
+  - platform: template
+    name: "Time of Use All Voltage"
+    id: time_of_use_all_voltage
+    unit_of_measurement: "V"
+    device_class: voltage
+    min_value: 0
+    max_value: 63
+    step: 0.01
+    update_interval: 1s
+    icon: "mdi:sun-clock"
+    disabled_by_default: true
+    lambda: |-
+      return id(time_of_use_1_voltage).state;
+    set_action:
+      - number.set:
+          id: time_of_use_1_voltage
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_2_voltage
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_3_voltage
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_4_voltage
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_5_voltage
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_6_voltage
+          value: !lambda "return x;"
+
+  - platform: template
+    name: "Time of Use All Out Power"
+    id: time_of_use_all_out_power
+    unit_of_measurement: W
+    device_class: power
+    min_value: 0
+    max_value: 20000
+    step: 1
+    update_interval: 1s
+    icon: "mdi:power-plug"
+    disabled_by_default: true
+    lambda: |-
+      return id(time_of_use_1_out_power).state;
+    set_action:
+      - number.set:
+          id: time_of_use_1_out_power
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_2_out_power
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_3_out_power
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_4_out_power
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_5_out_power
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_6_out_power
+          value: !lambda "return x;"
+
+  - platform: template
+    name: "Time of Use All SoC"
+    id: time_of_use_all_soc
+    unit_of_measurement: "%"
+    device_class: battery
+    min_value: 0
+    max_value: 100
+    step: 1
+    update_interval: 1s
+    icon: "mdi:battery-clock"
+    disabled_by_default: true
+    lambda: |-
+      return id(time_of_use_1_soc).state;
+    set_action:
+      - number.set:
+          id: time_of_use_1_soc
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_2_soc
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_3_soc
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_4_soc
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_5_soc
+          value: !lambda "return x;"
+      - number.set:
+          id: time_of_use_6_soc
+          value: !lambda "return x;"

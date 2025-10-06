@@ -58,6 +58,7 @@ To set the baud rate on your Deye inverter:
 
 - **Real-time Monitoring**: Monitor PV production, battery status, grid consumption, and load data
 - **Remote Control**: Control inverter work modes, battery charging parameters, and time-of-use settings
+- **Time of Use "All" Entities**: Convenient bulk control of all Time of Use windows simultaneously (disabled by default)
 - **Home Assistant Integration**: Seamless integration with Home Assistant via ESPHome API
 - **Safety Features**: Automatic fallback to safe operating parameters when connection to Home Assistant is lost
 - **Modular Design**: Clean, maintainable code structure with separate packages for different system components
@@ -180,13 +181,14 @@ If you prefer using command line or don't have Home Assistant:
 
 ### Inverter Configuration
 
-| Parameter | Description | Default | Required |
-|-----------|-------------|---------|----------|
-| `safe_mode_delay` | Delay before activating safe mode when disconnected | `600s` | No |
-| `default_maximum_battery_charge_current` | Maximum battery charge current in safe mode | `140` | No |
-| `default_max_sell_power` | Maximum power export in safe mode | `12000` | No |
-| `default_system_work_mode` | System work mode in safe mode | `"Zero Export To Load"` | No |
-| `default_solar_sell` | Solar selling state in safe mode | `"on"` | No |
+| Parameter | Description | Default | Required | Supported Inverters |
+|-----------|-------------|---------|----------|---------------------|
+| `safe_mode_delay` | Delay before activating safe mode when disconnected | `600s` | No | All (1P/3P) |
+| `default_maximum_battery_charge_current` | Maximum battery charge current in safe mode | `140` | No | All (1P/3P) |
+| `default_max_sell_power` | Maximum power export in safe mode | `12000` | No | All (1P/3P) |
+| `default_system_work_mode` | System work mode in safe mode | `"Zero Export To Load"` | No | All (1P/3P) |
+| `default_solar_sell` | Solar selling state in safe mode | `"on"` | No | All (1P/3P) |
+| `default_force_off_grid` | Force Off Grid switch state in safe mode | `"off"` | No | 3P only (SG0XLP3, SG0XHP3) |
 
 ### Default Hardware Configuration
 
@@ -212,6 +214,23 @@ This project automatically integrates with Home Assistant through the ESPHome AP
 - **Time-of-Use**: Programmable charging/selling schedules
 - **Power Limits**: Maximum selling and charging power settings
 - **Generator**: Control and monitoring (if connected)
+
+### Time of Use "All" Entities
+The system includes convenient "All" entities that allow you to control all Time of Use windows simultaneously:
+
+#### For Deye Inverters:
+- **Time of Use All SoC**: Set battery charge level for all 6 windows at once
+- **Time of Use All Out Power**: Set output power limit for all 6 windows at once  
+- **Time of Use All Voltage**: Set voltage threshold for all 6 windows at once
+- **Time of Use All Grid Charge**: Enable/disable grid charging for all 6 windows at once
+- **Time of Use All Gen (currently only 3P)**: Enable/disable generator charging for all 6 windows at once
+- **Time of Use All Sell (currently only 3P and probably only working properly with HV)**: Enable/disable selling for all 6 windows at once
+
+**Important Notes:**
+- These entities are **disabled by default** and must be enabled in Home Assistant to use them
+- When you change a value on any "All" entity, it automatically applies the same setting to all 6 Time of Use windows
+- These entities are particularly useful for automations where you want to control all Time of Use windows simultaneously
+- The "All" entities read their current state from the first Time of Use window (e.g., "Time of Use 1 SoC")
 
 ### Safety Features
 - **Automatic Safe Mode**: Transitions to safe parameters when Home Assistant connection is lost
