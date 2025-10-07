@@ -11,6 +11,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+globals:
+  - id: last_total_energy_bought
+    type: float
+    restore_value: yes
+  - id: last_update_time
+    type: unsigned long
+    restore_value: yes
+    
 sensor:
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
@@ -130,6 +139,7 @@ sensor:
       - multiply: 0.1
     icon: "mdi:transmission-tower-export"
 
+  # Axiliary sensor
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
     id: total_energy_bought_low_bytes 
@@ -146,6 +156,7 @@ sensor:
     value_type: U_WORD
     internal: true 
 
+  # Main sensor + fix
   - platform: template
     name: "Total Energy Bought"
     id: total_energy_bought
@@ -155,11 +166,25 @@ sensor:
     accuracy_decimals: 1
     icon: "mdi:transmission-tower-import"
     lambda: |-
-      auto high = id(total_energy_bought_low_bytes).state;
-      auto low = id(total_energy_bought_high_bytes ).state;
-      float calculated_value = ((high * 65536.0) + low) * 0.1;
+      auto high = id(total_energy_bought_high_bytes).state;
+      auto low = id(total_energy_bought_low_bytes).state;
+      if (isnan(high) || isnan(low)) {
+        return {}; 
+      }
+      float calculated_value = (((uint32_t)high << 16) | (uint32_t)low) * 0.1;
+      unsigned long now = millis();
+      if (id(last_update_time) > 0 && (now - id(last_update_time) > 3600000)) {
+        id(last_total_energy_bought) = calculated_value;
+        id(last_update_time) = now;
+        return calculated_value;
+      }
+      if (isnan(id(last_total_energy_bought)) || (calculated_value >= id(last_total_energy_bought) && calculated_value < id(last_total_energy_bought) + 1000.0)) {
+        id(last_total_energy_bought) = calculated_value;
+        id(last_update_time) = now;
+        return calculated_value;
+      }
       return {};
-
+      
   - platform: modbus_controller
     modbus_controller_id: ${modbus_controller_id}
     name: "Total Energy Sold"
